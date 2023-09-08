@@ -1,10 +1,12 @@
 import { Injectable } from "@nestjs/common";
 // import { PrismaClientKnownRequestError } from '@prisma/client';
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client';
+// import { Prisma, User } from '@prisma/client';
 import { ForbiddenException } from '@nestjs/common';
 import { PrismaService } from "src/prisma/prisma.service";
 import { AuthDto } from "./dto";
 import * as argon from 'argon2';
+
 @Injectable()
 export class AuthService{
   constructor(private prisma: PrismaService){}
@@ -15,16 +17,19 @@ export class AuthService{
           const hash = await argon.hash(dto.password);
           //save the new user in the db
           const user = await this.prisma.user.create({
-              data: {
-                email: dto.email,
-                // username: dto.username,
-                  hash, 
-              },
-              // select: {
-              //   id: true,
-              //   email: true,
-              //   createdAt: true,
-              // },
+            data: {
+              email: dto.email,
+              // createdAt: new Date(),
+              username: dto.username, // Replace with the desired username
+              lastName: dto.lastName, // Replace with the user's last name
+              hash, // Replace with the actual password hash
+              // Add other user properties as needed
+            },
+            // select: {
+            //   id: true,
+            //   email: true,
+            //   createdAt: true,
+            // },
             });
             delete user.hash;
           //return the saved user

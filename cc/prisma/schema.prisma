@@ -19,7 +19,7 @@ datasource db {
   username String @unique
 
   firstName String?
-  lastName String?
+  lastName String
   bookmarks Bookmark[]
 
   @@map("users")
