@@ -33,7 +33,7 @@ export class AuthService{
             });
             delete user.hash;
           //return the saved user
-          return user;
+          return Response.json({ message: "User registered.", status: 201 });;
         } catch(e){
           if(
             e instanceof 
