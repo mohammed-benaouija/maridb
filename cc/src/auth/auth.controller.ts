@@ -31,7 +31,9 @@ export class AuthController {
     
     @Get('42/callback')
     @UseGuards(AuthGuard('42'))
-    async fortyTwoAuthCallback(@Req() req: Request): Promise<any> {
+    async fortyTwoAuthCallback(@Req() req, @Res() res) {
+        const jwt = await this.authService.login(req.user);
+        return res.json(req.user);
       // Handle the authenticated user here
     }
 

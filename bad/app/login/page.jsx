@@ -3,7 +3,6 @@ import Link from "next/link";
 import * as z from 'zod';
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import LoginFrom from '../components/LoginForm'
 
 // import { Provider } from 'next-auth/client';
 
@@ -12,7 +11,7 @@ import LoginFrom from '../components/LoginForm'
 
 // import React from 'react';
 // export default LoginForm;
-export default function RegisterForm() {
+function YourComponent() {
 
 
 
@@ -136,3 +135,5 @@ export default function RegisterForm() {
     </section>
   );
 }
+
+export default YourComponent;

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 // import { PrismaClientKnownRequestError } from '@prisma/client';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient, Prisma, User } from '@prisma/client';
 // import { Prisma, User } from '@prisma/client';
 import { ForbiddenException } from '@nestjs/common';
 import { PrismaService } from "src/prisma/prisma.service";
@@ -23,13 +23,7 @@ export class AuthService{
               username: dto.username, // Replace with the desired username
               lastName: dto.lastName, // Replace with the user's last name
               hash, // Replace with the actual password hash
-              // Add other user properties as needed
             },
-            // select: {
-            //   id: true,
-            //   email: true,
-            //   createdAt: true,
-            // },
             });
             delete user.hash;
           //return the saved user
@@ -60,7 +54,7 @@ export class AuthService{
         },
       });
       if(!user)
-        throw new ForbiddenException(
+          throw new ForbiddenException(
          'Credentials taken',
          );
       //compare password
@@ -75,7 +69,35 @@ export class AuthService{
         'Credentials taken',
         );
         delete user.hash;
-        return user;
+        return (Response.json({ user, status: 201 }));
+    }
+    async login(requser)
+    {
+      const user = 
+      await this.prisma.user.findUnique({
+        where: {
+          email: requser.email,
+        },
+      });
+      if(user)
+      return (Response.json({ user, status: 201 }));
+      const user1 = await this.prisma.user.create({
+        data: {
+          email: requser.email,
+          // createdAt: new Date(),
+          username: requser.username, // Replace with the desired username
+          lastName: requser.lastName, // Replace with the user's last name
+          firstName: requser.firstName,
+
+          hash:"", // Replace with the actual password hash
+        },
+        });
+        // delete user.hash;
+      //return the saved user
+      return Response.json({ message: "User registered.", status: 201 });;
+
+
+
     }
     
 } 
