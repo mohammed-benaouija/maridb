@@ -32,8 +32,10 @@ export class AuthController {
     @Get('42/callback')
     @UseGuards(AuthGuard('42'))
     async fortyTwoAuthCallback(@Req() req, @Res() res) {
-        const jwt = await this.authService.login(req.user);
-        return res.json(req.user);
+        // const jwt = await this.authService.login(req.user);
+        // return res.json(req.user);
+        const userData = req.user;
+        res.redirect(`http://localhost:3000/loginForm?user=${JSON.stringify(userData)}`);
       // Handle the authenticated user here
     }
 
