@@ -5,11 +5,24 @@ import { PrismaClient, Prisma, User } from '@prisma/client';
 import { ForbiddenException } from '@nestjs/common';
 import { PrismaService } from "src/prisma/prisma.service";
 import { AuthDto } from "./dto";
+import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
 
 @Injectable()
 export class AuthService{
-  constructor(private prisma: PrismaService){}
+  [x: string]: any;
+  constructor(private readonly prisma: PrismaClient){}
+  async create(data: Prisma.UserCreateInput): Promise<User> {
+    return this.prisma.user.create({
+      data,
+    });
+  }
+  
+  async findOne(condition: Prisma.UserWhereUniqueInput): Promise<User> {
+    return this.prisma.user.findUnique({
+      where: condition,
+    });
+  }
   async signup(dto:AuthDto){
         //generate the password hash
         try{
@@ -27,7 +40,7 @@ export class AuthService{
             });
             delete user.hash;
           //return the saved user
-          return Response.json({ message: "User registered.", status: 201 });;
+          return (user) ;
         } catch(e){
           if(
             e instanceof 
@@ -69,7 +82,8 @@ export class AuthService{
         'Credentials taken',
         );
         delete user.hash;
-        return (Response.json({ user, status: 201 }));
+  
+        return user
     }
     async login(requser)
     {
@@ -80,7 +94,7 @@ export class AuthService{
         },
       });
       if(user)
-      return (Response.json({ user, status: 201 }));
+      return (user);
       const user1 = await this.prisma.user.create({
         data: {
           email: requser.email,
@@ -94,7 +108,7 @@ export class AuthService{
         });
         // delete user.hash;
       //return the saved user
-      return Response.json({ message: "User registered.", status: 201 });;
+      return user1;
 
 
 
