@@ -1,7 +1,7 @@
-import LoginForm from "@/components/LoginForm";
+import UserInfo from "@/components/UserInfo";
 export default function Home() {
-    return (
-        <main>
-            marhba marhba
-        </main>);
+        return (
+            <main>
+              <UserInfo />
+            </main>);
 }

@@ -72,7 +72,7 @@ export default function RegisterForm() {
         body: JSON.stringify({
           "email": email,
           "username": name,
-          "lastName": "simo",
+          "lastName": name,
           "password": password
         }),
       });
