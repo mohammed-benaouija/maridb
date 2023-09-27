@@ -27,12 +27,13 @@ export default function Home() {
   });
   return (
     <div class="h-screen bg-gray-400">
-      <div class="mx-auto flex w-80 justify-end p-6">
-        <div  onClick={toggleDropdown}  class="relative inline-block">
-          <button class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-slate-900 text-slate-100 ring-slate-100 transition hover:shadow-md hover:ring-2">
-            <img class="w-full object-cover" src={foto_user} alt="Profile" />
+      <div class="mx-auto flex  justify-end p-2 ">
+        <div  onClick={toggleDropdown}  class="relative inline-block ">
+          <button class=" flex h-12 w-12 items-center  overflow-hidden rounded-lg bg-slate-900 text-slate-100 ring-slate-100  hover:shadow-md hover:ring-2">
+            <img class="w-full object-cover " src={foto_user} alt="Profile" />
           </button>
-          { isOpen && (<div  x-transition="" class="absolute right-0 mt-3 flex w-60 flex-col gap-3 rounded-xl bg-slate-900 p-4 text-slate-100 shadow-lg">
+          { isOpen && (
+          <div  class="absolute right-0 mt-3 flex w-60 flex-col gap-3 rounded-xl bg-slate-900 p-4 text-slate-100 shadow-lg">
             <div class="flex items-center gap-3">
               <div class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg border-2 border-slate-600">
                 <img class="w-full object-cover" src={foto_user} alt="Profile" />
@@ -41,7 +42,7 @@ export default function Home() {
                 <div class="flex gap-1 text-sm font-semibold">
                   <span>{username}</span>
                   <span class="text-sky-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokewidth="1.5" stroke="currentColor" class="h-5 w-5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"></path>
                     </svg>
                   </span>

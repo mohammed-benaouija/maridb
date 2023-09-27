@@ -57,9 +57,11 @@ export default function LoginForm() {
         credentials: 'include',
         body: JSON.stringify({
           "email": email,
-          "username": "simo",
-          "lastName": "simo",
-          "password": password
+          "username": "",
+          "lastName": "",
+          "password": password,
+          foto_user: ''
+
         }),
       });
       if (res.status == 201) {
@@ -83,9 +85,9 @@ export default function LoginForm() {
     }
   }
   return (
-    <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+    <section className="bg-gray-50 min-h-screen flex font-semibold justify-center">
       {/* login container */}
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+      <div className={`bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center`}>
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-[#002D74]">Login</h2>
@@ -100,7 +102,7 @@ export default function LoginForm() {
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
               </svg>
             </div>
-            <button className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 ">Login</button>
+            <button className="bg-[#002D74] transition-all active:scale-100 rounded-xl text-white py-2 hover:scale-105 ">Login</button>
           </form>
 
           <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
@@ -119,8 +121,8 @@ export default function LoginForm() {
 
             {/* <text x="10" y="36" font-family="Arial, sans-serif" font-size="30" fill="white">42</text> */}
             <text x="10" y="36" font-family="Arial, sans-serif " font-size="30" fill="black" >
-              <tspan fill="blue">4</tspan>
-            <tspan fill="green">2</tspan>
+              <tspan fill="blue font-semibold">4</tspan>
+            <tspan fill="green font-semibold">2</tspan>
               </text>
             </svg>
 

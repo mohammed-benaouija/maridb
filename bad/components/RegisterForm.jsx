@@ -22,47 +22,48 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [configPassword, setConfigPassword] = useState("");
   const [error, setError] = useState("");
+  const [gender, setGender] = useState('');
   const formData = {
-      username: name,
-      email: email,
-      password: password,
-      confirmPassword: configPassword, // Doesn't match 'password123'
+    username: name,
+    email: email,
+    password: password,
+    confirmPassword: configPassword, // Doesn't match 'password123'
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const FormSchema = z
-  .object({
-    username: z.string().min(1, 'Username is required').max(100),
-    email: z.string().min(1, 'Email is required').email('Invalid email'),
-    password: z
-      .string()
-      .min(1, 'Password is required')
-      .min(8, 'Password must have than 8 characters'),
-    confirmPassword: z.string().min(1, 'Password confirmation is required'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ['confirmPassword'],
-    message: 'Password do not match',
-  });
-   
-  const validationResult = FormSchema.safeParse(formData);
+      .object({
+        username: z.string().min(1, 'Username is required').max(100),
+        email: z.string().min(1, 'Email is required').email('Invalid email'),
+        password: z
+          .string()
+          .min(1, 'Password is required')
+          .min(8, 'Password must have than 8 characters'),
+        confirmPassword: z.string().min(1, 'Password confirmation is required'),
+      })
+      .refine((data) => data.password === data.confirmPassword, {
+        path: ['confirmPassword'],
+        message: 'Password do not match',
+      });
 
-  if (validationResult.success) {
-    // Form data is valid
-    const validatedData = validationResult.data;
-    console.log('Valid data:', validatedData);
-  } else {
-    // Form data is invalid
-    const validationErrors = validationResult.error.flatten();
-    // flattenedErrors.formErrors,
-    // flattenedErrors.fieldErrors,
-    setError(validationErrors.fieldErrors.username || validationErrors.fieldErrors.email || validationErrors.fieldErrors.password || validationErrors.fieldErrors.confirmPassword);
-    console.error('Validation errors:', validationErrors);
-    const form = e.target;
-    form.reset();
-    return;
-  }
+    const validationResult = FormSchema.safeParse(formData);
+
+    if (validationResult.success) {
+      // Form data is valid
+      const validatedData = validationResult.data;
+      console.log('Valid data:', validatedData);
+    } else {
+      // Form data is invalid
+      const validationErrors = validationResult.error.flatten();
+      // flattenedErrors.formErrors,
+      // flattenedErrors.fieldErrors,
+      setError(validationErrors.fieldErrors.username || validationErrors.fieldErrors.email || validationErrors.fieldErrors.password || validationErrors.fieldErrors.confirmPassword);
+      console.error('Validation errors:', validationErrors);
+      const form = e.target;
+      form.reset();
+      return;
+    }
     try {
       const res = await fetch('http://localhost:3333/auth/signup', {
         method: 'POST',
@@ -73,25 +74,26 @@ export default function RegisterForm() {
           "email": email,
           "username": name,
           "lastName": name,
-          "password": password
+          "password": password,
+          "foto_user": gender
         }),
       });
-      
+
       if (res.status == 201) {
         const form = e.target;
         form.reset();
-          router.push('/');
-          } else {
-            const form = e.target;
-            form.reset();
-            setError("This user already exists");
-            console.log("user regitration faild.");
-          }
-          
-        } catch (error) {
-          const form = e.target;
-          form.reset();
-          
+        router.push('/');
+      } else {
+        const form = e.target;
+        form.reset();
+        setError("This user already exists");
+        console.log("user regitration faild.");
+      }
+
+    } catch (error) {
+      const form = e.target;
+      form.reset();
+
       console.log("kin wahd error hna: ", error);
     }
   };
@@ -104,23 +106,30 @@ export default function RegisterForm() {
           <h2 className="font-bold text-2xl text-[#002D74]">Login</h2>
           <p className="text-xs mt-4 text-[#002D74]">If you are already a member, easily log in</p>
 
-          <form  onSubmit={handleSubmit} action="" className="flex flex-col gap-4">
-            <input required  onChange={(e)=> setName(e.target.value)} className="p-2 mt-4 rounded-xl border w-full" type="text" name="text" placeholder="Name" />
-            <input required  onChange={(e)=> setEmail(e.target.value)} className="p-2 mt-2 rounded-xl border w-full" type="email" name="email" placeholder="Email" />
+          <form onSubmit={handleSubmit} action="" className="flex flex-col gap-4">
+            <input required onChange={(e) => setName(e.target.value)} className="p-2 mt-4 rounded-xl border w-full" type="text" name="text" placeholder="Name" />
+            <input required onChange={(e) => setEmail(e.target.value)} className="p-2 mt-2 rounded-xl border w-full" type="email" name="email" placeholder="Email" />
             <div className="relative">
-              <input required  onChange={(e)=> setPassword(e.target.value)}  className="p-2  mt-2  rounded-xl border w-full" type="password" name="password" placeholder="Password" />
-              <input required  onChange={(e)=> setConfigPassword(e.target.value)}  className="p-2 mt-5 rounded-xl border w-full" type="password" name="password" placeholder="Config Password" />
+              <input required onChange={(e) => setPassword(e.target.value)} className="p-2  mt-2  rounded-xl border w-full" type="password" name="password" placeholder="Password" />
+              <input required onChange={(e) => setConfigPassword(e.target.value)} className="p-2 mt-5 rounded-xl border w-full" type="password" name="password" placeholder="Config Password" />
               {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2" viewBox="0 0 16 16">
                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
               </svg> */}
+              <label>
+                <select  required value={gender} onChange={(e) => setGender(e.target.value)} className="p-2 mt-5 rounded-xl border w-full" >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </label>
             </div>
             <button className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 ">Register</button>
             {error && (
-            <div className=" bg-[#003D74] text-white w-fit textt-s, py-2 px-2  hover:scale-105 rounded-xl mt-2">
-              {error}
-            </div>
-          )}
+              <div className=" bg-[#003D74] text-white w-fit textt-s, py-2 px-2  hover:scale-105 rounded-xl mt-2">
+                {error}
+              </div>
+            )}
           </form>
           <div>
             <Link className="mt-3 text-xs flex justify-between items-center text-[#002D74]" href={"/"}> Already have an account ? <span className="underline py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">Login</span>
