@@ -1,10 +1,11 @@
 'use client'
+import Link from "next/link";
 import React from 'react';
 function LevelBar({ value }) {
   const progressWidth = `${value}%`;
 
   return (
-    <div className="bg-gray-200 h-5  w-64 rounded-full">
+    <div className="bg-gray-200 h-5  w-80 rounded-full">
       <div className="bg-cyan-500 h-5 rounded-full relative" style={{ width: progressWidth }}>
         {/* <span className="absolute inset-0 flex items-center justify-center text-white font-bold">
           {`${value}%`} */}
@@ -30,33 +31,49 @@ const UseProfile = () => {
         //         </div >
         //     </div>
         // </section>
-
-<div className='flex h-screen w-screen bg-blue-100 '>
-  <div className='flex w-96 m-[200px] mb-8 ms-8 max-h-[65%] flex-none justify-center  bg-blue-500 rounded-[40px] p-6 round text-white'>
+ <div className='flex justify-center min-h-screen  min-w-screen   items-start bg-blue-100 '> 
+  <div className='flex  flex-none  w-96 mt-[120px] mb-8  h-[0%]  justify-center bg-gradient-to-r from-cyan-500 to-blue-500 rounded-[40px] p-6  text-white'>
     <div class="text-center"> 
       <span>My Profile</span>
       <div className="mt-6">
         <img
-          src="https://cdn.intra.42.fr/users/ba22da9cdadaa7371ef3f082374edf1b/small_mbenaoui.jpg"
+          src="https://i.pinimg.com/564x/dc/51/61/dc5161dd5e36744d184e0b98e97d31ba.jpg"
           alt="Your Image Alt Text"
-          className="w-32 h-auto  rounded-full inline-block" // Adjust the width as needed
+          className="w-44 h-auto  rounded-full inline-block" // Adjust the width as needed
           />
       </div>
       <div className='mt-6'>
-        <h1>mmaqbour</h1>
-        <span>mmaqbour@gmail.com</span>
+        <h1 className="text-xl font-bold">mmaqbour</h1>
+        <span className="text-sm  font-serif italic flex justify-center mt-3">mmaqbour@gmail.com</span>
       </div>
-      <div class=" mt-6">
-      <LevelBar value={40} />
-      <p className=' mt-2 text-blue-200 uppercase'>level 8-86%</p>
-      
+      <div class="mt-8">
+      <LevelBar value={60} />
+      <p className=' mt-4 text-blue-200 font-serif italic uppercase'>level 8-86%</p>
       </div>
+      <div className='mt-6'>
+            <Link className="text-base font-bold flex justify-center items-center text-[#2c4d82]" href={"/register"}><span className="underline py-2 px-12 bg-white border rounded-full hover:scale-110 duration-300">Edit Profile</span>
+            </Link>
+          <h1 className="flex  mt-[50px] ">Recent Activities</h1>
+         
+          <img
+          src="https://w0.peakpx.com/wallpaper/616/177/HD-wallpaper-table-tennis-neon-icon-blue-background-neon-symbols-table-tennis-neon-icons-table-tennis-sign-sports-signs-table-tennis-icon-sports-icons.jpg"
+          alt="Your"
+          className="w-80 mt-6 h-60  rounded-[32px] inline-block"
+          />
+          {/* <button className="flex justify-center  items-center mt-6  bg-[#f4f5f8] transition-all active:scale-100 rounded-xl text-[#2c4d82] py-2 px-12 hover:scale-105 ">Login</button> */}
+            </div>
+            <div className="mt-8">
+            <button className="bg-[#eceef1]  transition-all active:scale-100 rounded-xl text-[#2c4d82] py-2 px-32 hover:scale-105 ">Logout</button>
+            </div>
     </div>
   </div>
-  <div className=' bg-blue-50 flex-1 w-80'>v</div>
-  <div className='flex-1 bg-blue-200'>c</div>
+
+  <div className=" flex-none  w-64 drop-shadow-[0_35px_35px_rgba(0,0,1,0.25)]   bg-blue-200 mt-[160px] min-h-[845px]  rounded-[0px] p-6">
+    </div>
+
+  <div className=" flex w-[900px]   bg-sky-500/50 mt-[160px] min-h-[845px]    rounded-[0px] p-6">
+    </div>
 </div>
-      // </div>
 //       <div class="grid grid-rows-3 grid-flow-col gap-4">
 //   <div class="row-start-6  row-span-2  bg-black ...">01</div>
 //   <div class="row-end-6 row-span-2 ...">02</div>
