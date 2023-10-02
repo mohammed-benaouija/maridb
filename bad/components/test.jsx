@@ -3,7 +3,6 @@ import Link from "next/link";
 import React, { useEffect, useState } from 'react';
 import Friends from "./Friend";
 import Rank from "./Rank";
-import {CgProfile} from 'react-icons/cg';
 function LevelBar({ value }) {
   
   const progressWidth = `${value}%`;
@@ -21,7 +20,6 @@ function LevelBar({ value }) {
 
 const UseProfile = () => {
   const [check, setCheck] = useState(1);
-   const [isOpen, setIsOpen] = useState(false)
     return (
 
 
@@ -37,9 +35,18 @@ const UseProfile = () => {
         //         </div >
         //     </div>
         // </section>
- <div className='flex  flex-wrap  justify-center min-h-screen  min-w-screen   items-start bg-blue-100 p-6 '>
-  <div className='  flex-none     w-96 mt-[120px] mb-10  h-[100%]  shadow-2xl  shadow-blue-600 justify-center bg-gradient-to-r from-cyan-500 to-blue-500 rounded-[40px] p-6  text-white'>
-    <div class="text-center"> 
+ <div className='flex  min-h-screen  min-w-screen  justify-center  items-start bg-blue-100 p-6 '>
+    <div className="flex  "><button className="relative  z-30 lg:hidden peer h-14 w-14 rounded-full bg-cyan-500 hover:bg-cyan-600 focus:bg-cyan-600 active:bg-cyan-700 transition">
+    <span class="text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 m-auto" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"/>
+      </svg>
+    </span>
+        </button> 
+
+
+  <div  className="z-30  fixed   -left-96  lg:min-h-[100px] lg:left-auto flex-none  lg:-ml-[350px] lg:mt-[120px] lg:p-6 lg:mb-10  lg:w-96 shadow-blue-600 justify-center bg-gradient-to-r from-cyan-500 to-blue-500 rounded-[40px] p-6 mt-[55px]  text-white shadow-2xl peer-focus:left-auto peer:transition ease-out delay-150 duration-200">
+    <div className="text-center"> 
       <span>My Profile</span>
       <div className="mt-6">
         <img
@@ -73,16 +80,18 @@ const UseProfile = () => {
             </div>
     </div>
   </div>
+  
+  </div>
 <div className="">
   
-  <div className=" flex flex-col gap-8    h-full w-64 items-center shadow-lg shadow-blue-500 bg-white  mt-[160px] min-h-[845px]  rounded-[0px] p-6">
+  <div className=" flex flex-col gap-8    w-64 items-center shadow-lg shadow-blue-500 bg-white  mt-[160px] min-h-[845px]  rounded-[0px] p-6">
       <div><button onClick={() => setCheck(1)} className=" mt-60 px-[101px] py-2   g shadow-blue-600  justify-center bg-gradient-to-r from-blue-500 to-cyan-200  text-white">Friends</button></div>
       <div><button onClick={() => setCheck(2)} className=" mt-20  px-[110px] py-2 shadow-blue-600 justify-center bg-gradient-to-r from-blue-500 to-cyan-200    text-white">Rank</button></div>
     
     </div>
 
 </div>
-  <div className=" flex flex-auto w-[900px]  opacity-50  md:opacity-150 bg-white mt-[160px] min-h-[845px] flex-col   rounded-r-[50px] p-6">
+  <div className=" flex w-[900px]  opacity-50  md:opacity-150 bg-white mt-[160px] min-h-[845px] flex-col   rounded-r-[50px] p-6">
     {
       check === 1 && <Friends/>
 
@@ -90,9 +99,8 @@ const UseProfile = () => {
     {
       check === 2 && <Rank/>
     }
-    
-    
     </div>
+    {/* <div className="z-10 lg:hidden fixed top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-30 opacity-0 peer-focus:opacity-100 peer:transition duration-200"></div> */}
 </div>
 //       <div class="grid grid-rows-3 grid-flow-col gap-4">
 //   <div class="row-start-6  row-span-2  bg-black ...">01</div>
