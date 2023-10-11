@@ -13,5 +13,10 @@ export class AuthDto{
     username: string; 
 
     @IsString()
-    lastName: string; 
+    lastName: string;
+
+    @IsString()
+    foto_user: string;
+    
 }  
+

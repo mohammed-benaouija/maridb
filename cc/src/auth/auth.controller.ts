@@ -44,13 +44,10 @@ export class AuthController {
     @UseGuards(AuthGuard('42'))
     async fortyTwoAuthCallback(@Req() req,  @Res({passthrough: true}) response:Response) {
          const user = await this.authService.login(req.user);
+         console.log("ssssss");
          const jwt = await this.jwtService.signAsync({id: user.id}) 
          response.cookie('jwt', jwt, { httpOnly: true });
-         req.redirect(`http://localhost:3000/loginForm`);
-         return {
-            message: 'succes',  
-            status: 201
-           };
+          response.redirect('http://localhost:3000/loginForm');
     }
     @Get('user')
     async user(@Req() request:Request){
@@ -63,7 +60,7 @@ export class AuthController {
             }
             const user = await this.authService.findOne({id: condition['id']});
             //     console.log('JWT Cookie:', user);
-            const {hash, ...result} =  user;
+            const {hash, ...result} = user;
             return result;  
         }catch(e)
         {

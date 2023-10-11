@@ -1,6 +1,3 @@
-   // This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,33 +6,57 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- model User {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
 
-  email String  @unique
-  hash String
-  username String @unique
-
-  firstName String?
-  lastName String
-  bookmarks Bookmark[]
-
-  @@map("users")
-
- }
- model Bookmark {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
+model User {
+  id                    Int               @id @default(autoincrement())
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt 
+  email                 String            @unique
+  hash                  String
+  username              String            @unique
+  firstName             String?
+  lastName              String?
+  foto_user             String?
+  bookmarks             Bookmark[]
   
-  title String
+  // Friend relations
+  friends                Friendship[]      @relation("UserFriends")
+  friendOf               Friendship[]      @relation("UserFriendOf")
+  sentFriendRequests     FriendRequest[]   @relation("SentFriendRequests")
+  receivedFriendRequests FriendRequest[]   @relation("ReceivedFriendRequests")
+  userId                 Int?
+}
+
+model FriendRequest {
+  id         Int    @id @default(autoincrement())
+  status     String
+
+  senderId   Int
+  sender     User   @relation("SentFriendRequests", fields: [senderId], references: [id])
+
+  receiverId Int
+  receiver   User   @relation("ReceivedFriendRequests", fields: [receiverId], references: [id])
+}
+
+model Bookmark {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
   description String?
-  link String?
+  link        String?
+  
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+}
 
+model Friendship {
+  id        Int     @id @default(autoincrement())
+  status    String  // You can use this to track the status of the friendship (e.g., 'accepted', 'pending', 'rejected')
 
-  userId Int
-  user User @relation(fields: [userId], references: [id])
-  @@map("bookmarks")
- }
+  userAId   Int
+  userA     User    @relation("UserFriends", fields: [userAId], references: [id])
+  
+  userBId   Int
+  userB     User    @relation("UserFriendOf", fields: [userBId], references: [id])
+}
