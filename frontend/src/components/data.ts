@@ -40,6 +40,3 @@ export const arabicNames = [
     "Dalia Nasser",
     "Said Rima"
 ];
-
-
-
