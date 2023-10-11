@@ -38,5 +38,9 @@ export const arabicNames = [
     "Adam Inaya",
     "Bilal Mariam",
     "Dalia Nasser",
-    "Said Rima"
+    "Said Rima";
+    "hamza badr";
 ];
+
+
+
